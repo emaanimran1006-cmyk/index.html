@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dream Mist - Perfume Brand</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: Arial,sans-serif; }
+body { background:#f9f9f9; color:#333; }
+
+nav { background: linear-gradient(to right, #ffb347, #ffcc33); padding:15px 30px; display:flex; justify-content: space-between; align-items:center; }
+nav .logo { font-weight:bold; font-size:20px; color:white; }
+nav .links a { margin-left:20px; font-weight:bold; color:white; }
+nav .cart { position:relative; }
+nav .cart span { background:red; color:white; padding:2px 6px; border-radius:50%; position:absolute; top:-8px; right:-10px; font-size:12px; }
+
+.container { max-width:1000px; margin:20px auto; padding:20px; }
+h1,h2 { margin-bottom:15px; }
+
+#home img { border-radius:15px; margin-top:15px; }
+
+.cards { display:flex; flex-wrap:wrap; gap:15px; }
+.card { background: linear-gradient(to right, #ffb347, #ffcc33); color:white; flex: 1 1 calc(50% - 15px); padding:20px; border-radius:10px; }
+
+.products { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+.product-card {
+    background:white; padding:15px; border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow:0 8px 15px rgba(0,0,0,0.2);
+}
+.product-card img { height:200px; object-fit:cover; border-radius:10px; cursor:pointer; }
+
+.product-card button { margin-top:10px; padding:8px 15px; background: #ffb347; border:none; color:white; font-weight:bold; cursor:pointer; border-radius:5px; }
+.product-card button:hover { background:#ff9933; }
+
+form { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+input, textarea, select { padding:10px; border-radius:5px; border:1px solid #ccc; width:100%; }
+input[type="file"] { padding:3px; }
+button.submit-btn { padding:10px; background:#ffb347; border:none; color:white; font-weight:bold; cursor:pointer; border-radius:5px; }
+button.submit-btn:hover { background:#ff9933; }
+
+#filterContainer { display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap; }
+#searchInput { padding:8px; flex:1; border-radius:5px; border:1px solid #ccc; }
+
+footer { background:#333; color:white; text-align:center; padding:15px 0; margin-top:20px; border-radius:0 0 10px 10px; }
+
+.hidden { display:none; }
+
+.modal {
+    display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.7);
+    justify-content:center; align-items:center;
+}
+.modal-content {
+    background:white; padding:20px; border-radius:10px; max-width:400px; width:90%; text-align:center;
+    position:relative;
+}
+.modal-content img { width:100%; height:250px; object-fit:cover; border-radius:10px; }
+.modal-close { position:absolute; top:10px; right:15px; font-size:18px; cursor:pointer; font-weight:bold; }
+
+@media(max-width:768px){ .cards { flex-direction:column; } }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">The Dream Mist</div>
+<div class="links">
+    <a href="file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html#" onclick="showPage(&#39;home&#39;)">Home</a>
+    <a href="file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html#" onclick="showPage(&#39;about&#39;)">About</a>
+    <a href="file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html#" onclick="showPage(&#39;products&#39;)">Products</a>
+    <a href="file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html#" onclick="showPage(&#39;contact&#39;)">Contact</a>
+    <div class="cart">🛒 <span id="cartCount">0</span></div>
+</div>
+</nav>
+
+<!-- Home -->
+<div class="container hidden" id="home">
+<h1>Welcome to The Dream Mist</h1>
+<p>Discover the essence of elegance with our exclusive perfume collection.</p>
+<img src="./The Dream Mist - Perfume Brand_files/photo-1604335399104-0dff9fcf22c1" alt="Perfume">
+</div>
+
+<!-- About -->
+<div class="container hidden" id="about">
+<h1>About Our Brand</h1>
+<div class="cards">
+    <div class="card"><h2>Premium Quality</h2><p>Our perfumes are crafted using the finest ingredients for a lasting fragrance.</p></div>
+    <div class="card"><h2>Unique Scents</h2><p>Each fragrance is carefully designed to reflect elegance, sophistication, and charm.</p></div>
+    <div class="card"><h2>Eco-Friendly</h2><p>We prioritize sustainable practices in our products and packaging.</p></div>
+    <div class="card"><h2>Worldwide Shipping</h2><p>Delivering your favorite scents directly to your doorstep.</p></div>
+</div>
+</div>
+
+<!-- Products -->
+<div class="container hidden" id="products">
+<h1>Our Perfume Collection</h1>
+
+<form id="productForm">
+    <input type="hidden" id="editIndex">
+    <input type="text" id="productName" placeholder="Product Name" required="">
+    <input type="number" id="productPrice" placeholder="Price (e.g. 2000)" required="">
+    <select id="productCategory" required="">
+        <option value="">Select Category</option>
+        <option value="Floral">Floral</option>
+        <option value="Fresh">Fresh</option>
+        <option value="Woody">Woody</option>
+    </select>
+    <textarea id="productDesc" rows="3" placeholder="Product Description" required=""></textarea>
+    <input type="file" id="productImage" accept="image/*">
+    <button type="submit" class="submit-btn">Add Product</button>
+</form>
+
+<div id="filterContainer">
+    <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option value="Floral">Floral</option>
+        <option value="Fresh">Fresh</option>
+        <option value="Woody">Woody</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search Product...">
+</div>
+
+<div class="products" id="productContainer"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <img id="modalImg" src="file:///C:/Users/Taj%20computer/Desktop/coffee%20website/movie.html" alt="">
+        <h3 id="modalName"></h3>
+        <p id="modalDesc"></p>
+        <p><strong>Rs <span id="modalPrice"></span></strong></p>
+    </div>
+</div>
+
+<!-- Contact -->
+<div class="container" id="contact">
+<h1>Contact Us</h1>
+<form id="contactForm">
+    <input type="hidden" id="editContactIndex">
+    <input type="text" id="name" placeholder="Your Name" required="">
+    <input type="email" id="email" placeholder="Your Email" required="">
+    <textarea id="message" rows="3" placeholder="Your Message" required=""></textarea>
+    <button type="submit" class="submit-btn">Send Message</button>
+</form>
+
+<table id="messagesTable">
+<thead>
+<tr><th>Name</th><th>Email</th><th>Message</th><th>Actions</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<footer>© 2025 The Dream Mist. All Rights Reserved.</footer>
+
+<script>
+// Page Navigation
+function showPage(page){
+    ['home','about','products','contact'].forEach(p=>document.getElementById(p).classList.add('hidden'));
+    document.getElementById(page).classList.remove('hidden');
+}
+
+// Product CRUD + Filters + Search + Modal + Cart
+let products=[], cartCount=0;
+const productForm=document.getElementById('productForm');
+const productContainer=document.getElementById('productContainer');
+const cartCounter=document.getElementById('cartCount');
+const filterCategory=document.getElementById('filterCategory');
+const searchInput=document.getElementById('searchInput');
+const modal=document.getElementById('productModal');
+const modalImg=document.getElementById('modalImg');
+const modalName=document.getElementById('modalName');
+const modalDesc=document.getElementById('modalDesc');
+const modalPrice=document.getElementById('modalPrice');
+
+productForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    const name=document.getElementById('productName').value.trim();
+    const price=document.getElementById('productPrice').value;
+    const desc=document.getElementById('productDesc').value.trim();
+    const category=document.getElementById('productCategory').value;
+    const imageInput=document.getElementById('productImage');
+    const editIndex=document.getElementById('editIndex').value;
+
+    let imageSrc='';
+    if(imageInput.files && imageInput.files[0]){
+        const reader=new FileReader();
+        reader.onload=function(e){ saveProduct(name,price,desc,category,e.target.result,editIndex); }
+        reader.readAsDataURL(imageInput.files[0]);
+    } else { saveProduct(name,price,desc,category,'',editIndex); }
+});
+
+function saveProduct(name,price,desc,category,imageSrc,editIndex){
+    const product={name,price,desc,category,imageSrc};
+    if(editIndex==='') products.push(product);
+    else {
+        const prevImage=products[editIndex].imageSrc;
+        product.imageSrc=imageSrc || prevImage;
+        products[editIndex]=product;
+        document.getElementById('editIndex').value='';
+        productForm.querySelector('button').textContent='Add Product';
+    }
+    productForm.reset();
+    renderProducts();
+}
+
+function renderProducts(){
+    const filter=filterCategory.value;
+    const search=searchInput.value.toLowerCase();
+    productContainer.innerHTML='';
+    products.forEach((p,index)=>{
+        if((!filter || p.category===filter) && p.name.toLowerCase().includes(search)){
+            const card=document.createElement('div'); card.classList.add('product-card');
+            card.innerHTML=`
+                <img src="${p.imageSrc || 'https://via.placeholder.com/200'}" alt="${p.name}" onclick="openModal(${index})">
+                <h3>${p.name}</h3>
+                <p><strong>Rs ${p.price}</strong></p>
+                <button onclick="addToCart()">Add to Cart</button>
+                <button onclick="editProduct(${index})">Edit</button>
+                <button onclick="deleteProduct(${index})">Delete</button>
+            `;
+            productContainer.appendChild(card);
+        }
+    });
+}
+
+function addToCart(){ cartCount++; cartCounter.textContent=cartCount; }
+function editProduct(index){
+    const p=products[index];
+    document.getElementById('productName').value=p.name;
+    document.getElementById('productPrice').value=p.price;
+    document.getElementById('productDesc').value=p.desc;
+    document.getElementById('productCategory').value=p.category;
+    document.getElementById('editIndex').value=index;
+    productForm.querySelector('button').textContent='Update Product';
+}
+function deleteProduct(index){ if(confirm('Delete?')){ products.splice(index,1); renderProducts(); } }
+filterCategory.addEventListener('change',renderProducts);
+searchInput.addEventListener('input',renderProducts);
+
+// Modal
+function openModal(index){
+    const p=products[index];
+    modalImg.src=p.imageSrc||'https://via.placeholder.com/200';
+    modalName.textContent=p.name;
+    modalDesc.textContent=p.desc;
+    modalPrice.textContent=p.price;
+    modal.style.display='flex';
+}
+function closeModal(){ modal.style.display='none'; }
+
+// Contact Form CRUD
+let messages=[];
+const contactForm=document.getElementById('contactForm');
+const tableBody=document.querySelector('#messagesTable tbody');
+contactForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    const name=document.getElementById('name').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const message=document.getElementById('message').value.trim();
+    const editIndex=document.getElementById('editContactIndex').value;
+    const msgObj={name,email,message};
+    if(editIndex==='') messages.push(msgObj);
+    else { messages[editIndex]=msgObj; document.getElementById('editContactIndex').value=''; contactForm.querySelector('button').textContent='Send Message'; }
+    contactForm.reset(); renderMessages();
+});
+function renderMessages(){ tableBody.innerHTML=''; messages.forEach((m,i)=>{ const row=document.createElement('tr'); row.innerHTML=`
+<td>${m.name}</td><td>${m.email}</td><td>${m.message}</td>
+<td><button onclick="editMessage(${i})">Edit</button><button onclick="deleteMessage(${i})">Delete</button></td>`; tableBody.appendChild(row); }); }
+function editMessage(i){ const m=messages[i]; document.getElementById('name').value=m.name; document.getElementById('email').value=m.email; document.getElementById('message').value=m.message; document.getElementById('editContactIndex').value=i; contactForm.querySelector('button').textContent='Update Message'; }
+function deleteMessage(i){ if(confirm('Delete?')){ messages.splice(i,1); renderMessages(); } }
+</script>
+
+
+</body></html>
